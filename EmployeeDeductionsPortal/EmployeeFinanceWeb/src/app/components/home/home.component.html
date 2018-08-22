@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-md-3">
+        <button style="margin-top:20px; float:right; margin-right:20px" mat-button color="warn" (click)="create()">Create New Employee</button>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-12 example-container mat-elevation-z8">
+
+      <mat-table #table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element" (click)="goToEmployee(element._id)"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.address}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Phone </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="salary">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Salary </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.salary|currency}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+              <mat-icon class="example-icon" (click)="deleteEmployee(element._id)">delete</mat-icon> 
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      </mat-table>
+
+      <mat-paginator #paginator
+                 [pageSize]="5"
+                 [pageSizeOptions]="[5, 10]"
+                 [showFirstLastButtons]="true">
+      </mat-paginator>
+
+    </div>
+  </div>
+</div>

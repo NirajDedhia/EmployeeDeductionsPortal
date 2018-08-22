@@ -1,0 +1,93 @@
+<div class="container" style="margin-top:2%;">
+  <div class="row">
+    <div class="col-md-12">
+      <a (click)="goToHome()" style="color:green;">Go back to Summary</a>
+    </div>
+  </div>
+  <br>
+  <mat-card class="mat-elevation-z8">
+    <mat-card-title>
+      Employee Detail
+      <button style="float:right; margin-right:20px" mat-button color="warn" (click)="modify()">Edit Records</button>
+    </mat-card-title>
+    <mat-card-subtitle>
+      Basic Information
+    </mat-card-subtitle>
+    <mat-card-content>
+        <div class = "row">
+          <div class = "col-md-6">
+            <a style="float:left">Name: {{employee.name}}</a>
+          </div>
+          <div class = "col-md-6">
+              <a style="float:right">Address: {{employee.address}}</a>
+          </div>
+        </div>
+        <div class = "row">
+          <div class = "col-md-6">
+              <a style="float:left">PhoneNo: {{employee.phone}}</a>
+          </div>
+        </div>
+        <div class = "row">
+          <div class = "col-md-12">
+            <b style="float:left">Salary</b> 
+            <b style="float:right">{{employee.salary|currency}}</b> 
+          </div>
+        </div>
+    </mat-card-content>
+
+    <hr>
+
+    <mat-card-subtitle>
+      Deductions
+    </mat-card-subtitle>
+    <mat-card-content>
+      <mat-accordion>
+        <mat-expansion-panel (opened)="expand = true"
+                              (closed)="expand = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Click here to view all deductions
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ul *ngFor='let plan of employee.plans'>
+            <li>
+              <div  class="row">
+                <div class="col-md-4">
+                    {{plan.name}}
+                </div>
+                <div class="col-md-4">
+                    <a *ngIf="plan.percentage">{{plan.percentage}}%</a>
+                </div>
+                <div class="col-md-4">
+                    {{plan.amount|currency}}
+                </div>
+              </div>
+            </li>
+          </ul>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <br>
+      <div class = "row">
+        <div class = "col-md-12">
+          <b style="float:left">Total Deduction</b> 
+          <b style="float:right">{{employee.deduction|currency}}</b> 
+        </div>
+      </div>
+    </mat-card-content>
+
+      <hr>
+
+      <mat-card-content>
+        <div class = "row">
+          <div class = "col-md-12">
+            <b style="float:left">Net Pay</b> 
+            <b style="float:right">{{employee.netPay|currency}}</b> 
+          </div>
+        </div>
+      </mat-card-content>
+      
+  </mat-card>
+
+</div>
+
+

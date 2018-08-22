@@ -1,0 +1,87 @@
+<mat-card-header>
+  <mat-toolbar>
+    <mat-card-title>Contact Information</mat-card-title>
+    <span class="toolbar-spacer"></span>
+    <mat-icon (click)="onNoClick()">cancel</mat-icon>
+  </mat-toolbar>
+</mat-card-header>
+<mat-card-content>
+  <div class="container">
+    <form [formGroup]="_employeeForm" (submit)="onSubmit()">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <label>Name</label>
+            <input type="text" formControlName="name" class="form-control">
+          </div>
+          <div class="col-md-6">
+            <label>Address</label>
+            <input type="text" formControlName="address" class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Salary</label>
+            <input type="number" formControlName="salary" class="form-control">
+          </div>
+          <div class="col-md-6">
+            <label>Phone</label>
+            <input type="number" formControlName="phone" class="form-control">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label>Deduction</label>
+          </div>
+        </div>
+
+        <form #f="ngForm" (ngSubmit)="addPlan(f)" novalidate>
+          <div class="row">
+            <div class="col-sm-6">
+              <!-- <input type="text" name="pname" ngModel required #name="ngModel" class="form-control"> -->
+              <mat-form-field>
+                <mat-select (change)="setCurrentPlan($event.value)" placeholder="Select Deduction">
+                  <mat-option *ngFor="let plan of plans" [value]="plan">
+                    {{ plan.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <input *ngIf="!currentPlan.amount" type="text" name="ppercentage" ngModel required #salary="ngModel" class="form-control">
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-success">
+                <mat-icon>Add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div class="row">
+          <div class="col-sm-12" style="display: block; height: 150px; overflow-y: scroll;">
+            <table class="table table-striped">
+              <tbody>
+                <tr *ngFor = "let p of data.plans">
+                  <td>{{p.name}}</td>
+                  <td>{{p.percentage}}</td>
+                  <td (click)=removePlanFromList(p)>X</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+          <button type="submit" class="btn btn-success">
+            <mat-icon>save</mat-icon>
+          </button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</mat-card-content>
